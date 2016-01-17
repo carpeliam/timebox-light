@@ -28,4 +28,11 @@ gulp.task('watch', function () {
     gulp.watch('src/**/*.js', ['build']);
 });
 
+gulp.task('test', function () {
+    return karma.server.start({
+        configFile: __dirname+'/karma.conf.js',
+        singleRun: true
+    });
+});
+
 gulp.task('serve', ['build', 'connect', 'watch']);

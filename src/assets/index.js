@@ -1,2 +1,3 @@
-const message = 'Hello, world!';
-console.log(message);
+export default function(name) {
+	return `Hello, ${name}!`;
+};
