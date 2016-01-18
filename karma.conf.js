@@ -1,6 +1,9 @@
 module.exports = function(config) {
     config.set({
-        files: ['spec/**/*Spec.js'],
+        files: [
+            'node_modules/babel-polyfill/dist/polyfill.min.js',
+            'spec/**/*Spec.js'
+        ],
         frameworks: ['jasmine', 'browserify'],
         preprocessors: {
             'spec/**/*Spec.js': ['browserify']

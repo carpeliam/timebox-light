@@ -4,6 +4,28 @@ var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var connect = require('gulp-connect');
 
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+
+
+function createArtifacts() {
+    gulp.src('src/index.html')
+        .pipe(gulp.dest('dist'));
+
+    return browserify({
+            entries: './src/assets/index.js',
+            debug: true,
+            transform: ['babelify']
+        })
+        .bundle()
+        .pipe(source('assets/app.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('dist'));
+}
+
 gulp.task('connect', function() {
     connect.server({
         root: 'dist',
@@ -12,27 +34,15 @@ gulp.task('connect', function() {
 });
 
 gulp.task('build', function() {
-    gulp.src('src/index.html')
-        .pipe(gulp.dest('dist'));
+    createArtifacts().pipe(connect.reload());
+});
 
-    gulp.src('src/**/*.js')
-        .pipe(sourcemaps.init())
-        .pipe(babel())
-        .pipe(concat('assets/app.js'))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist'))
-        .pipe(connect.reload());
+gulp.task('dist', function() {
+    createArtifacts();
 });
 
 gulp.task('watch', function () {
     gulp.watch('src/**/*.js', ['build']);
-});
-
-gulp.task('test', function () {
-    return karma.server.start({
-        configFile: __dirname+'/karma.conf.js',
-        singleRun: true
-    });
 });
 
 gulp.task('serve', ['build', 'connect', 'watch']);
