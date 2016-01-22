@@ -5,7 +5,6 @@ import 'moment-duration-format';
 class Box extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {paused: true};
     }
 
     formattedTime() {
@@ -13,12 +12,12 @@ class Box extends React.Component {
     }
 
     handlePause() {
-        this.setState({paused: !this.state.paused});
-        this.props.onStart();
+        this.props.onStart()
     }
 
+
     render() {
-        const pauseState = this.state.paused ? 'Start' : 'Pause';
+        const pauseState = this.props.paused ? 'Start' : 'Pause';
         return <div>
             {this.props.name} {this.formattedTime()}
             <button onClick={this.handlePause.bind(this)}>{pauseState}</button>

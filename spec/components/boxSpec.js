@@ -10,7 +10,7 @@ describe('Box', function () {
     let callbackSpy;
     beforeEach(function () {
         callbackSpy = jasmine.createSpy('callback');
-        box = TestUtils.renderIntoDocument(<Box name={'My Box'} duration={66000} onStart={callbackSpy}/>);
+        box = TestUtils.renderIntoDocument(<Box name={'My Box'} duration={66000} paused={true} onStart={callbackSpy}/>);
     });
 
     it('displays the name of the Box', function () {
@@ -25,12 +25,14 @@ describe('Box', function () {
         expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Start');
     });
 
+    it('has pause button when paused', function () {
+        box = TestUtils.renderIntoDocument(<Box name={'My Box'} duration={66000} paused={false} onStart={callbackSpy}/>);
+        expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Pause');
+    });
+
     describe('clicking start', function () {
         beforeEach(function () {
             TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(box, 'button'));
-        });
-        it('changes to pause', function () {
-            expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Pause');
         });
 
         it('calls the callback function', function () {
