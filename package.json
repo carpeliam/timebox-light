@@ -6,6 +6,7 @@
   "scripts": {
     "start": "gulp serve",
     "dist": "gulp dist",
+    "lint": "eslint src/assets spec",
     "test": "karma start --single-run true"
   },
   "author": "",
@@ -15,6 +16,9 @@
     "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^4.0.0",
+    "eslint-plugin-react": "^3.16.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
     "gulp-concat": "^2.6.0",
