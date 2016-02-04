@@ -20,4 +20,16 @@ describe('Main', function () {
         expect(box.props.lastCheckedTime).toBeUndefined();
         expect(box.props.paused).toBeTruthy();
     });
+
+    it('has state of paused', function () {
+        expect(main.state.paused).toBeTruthy();
+    });
+
+    describe('when clicking a button', function () {
+
+        it('changes state of paused', function () {
+            TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(main, 'button'));
+            expect(main.state.paused).toBeFalsy();
+        });
+    });
 });
