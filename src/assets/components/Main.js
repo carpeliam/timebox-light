@@ -30,7 +30,7 @@ class Main extends React.Component {
             const lastCheckTime = this.state.lastCheckedTime || now;
             const elapsed = now - lastCheckTime;
             const duration = this.state.duration += elapsed;
-            this.setState({duration: duration, lastCheckedTime: lastCheckTime})
+            this.setState({duration, lastCheckedTime: now})
         }
     }
 

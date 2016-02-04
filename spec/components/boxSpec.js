@@ -2,40 +2,40 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import Box from '../../src/assets/components/Box';
 
-describe('Box', function () {
+describe('Box', () => {
     let box;
     function callback() {
         console.log('pause please')
     }
     let callbackSpy;
-    beforeEach(function () {
+    beforeEach(() => {
         callbackSpy = jasmine.createSpy('callback');
         box = TestUtils.renderIntoDocument(<Box name={'My Box'} duration={66000} paused={true} onStart={callbackSpy}/>);
     });
 
-    it('displays the name of the Box', function () {
+    it('displays the name of the Box', () => {
         expect(TestUtils.findRenderedDOMComponentWithTag(box, 'div').textContent).toContain('My Box');
     });
 
-    it('formats the elapsed time as h:mm:ss', function () {
+    it('formats the elapsed time as h:mm:ss', () => {
         expect(TestUtils.findRenderedDOMComponentWithTag(box, 'div').textContent).toContain('0:01:06');
     });
 
-    it('has a start button', function () {
+    it('has a start button', () => {
         expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Start');
     });
 
-    it('has pause button when paused', function () {
+    it('has pause button when paused', () => {
         box = TestUtils.renderIntoDocument(<Box name={'My Box'} duration={66000} paused={false} onStart={callbackSpy}/>);
         expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Pause');
     });
 
-    describe('clicking start', function () {
-        beforeEach(function () {
+    describe('clicking start', () => {
+        beforeEach(() => {
             TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(box, 'button'));
         });
 
-        it('calls the callback function', function () {
+        it('calls the callback function', () => {
             expect(callbackSpy).toHaveBeenCalled();
         });
     });

@@ -3,33 +3,52 @@ import TestUtils from 'react-addons-test-utils'
 import Main from '../../src/assets/components/Main'
 import Box from '../../src/assets/components/Box'
 
-describe('Main', function () {
+describe('Main', () => {
     let main, box;
-    beforeEach(function () {
+    beforeEach(() => {
         main = TestUtils.renderIntoDocument(<Main></Main>);
         box = TestUtils.findRenderedComponentWithType(main, Box);
     });
 
-    it('contains a box', function () {
+    it('contains a box', () => {
         expect(box).toBeDefined();
     });
 
-    it('passes props to box', function () {
+    it('passes props to box', () => {
         expect(box.props.name).toEqual('I am a box');
         expect(box.props.duration).toEqual(0);
         expect(box.props.lastCheckedTime).toBeUndefined();
         expect(box.props.paused).toBeTruthy();
     });
 
-    it('has state of paused', function () {
+    it('has state of paused', () => {
         expect(main.state.paused).toBeTruthy();
     });
 
-    describe('when clicking a button', function () {
+    it('clears timer on unmount', () => {
+        const clearIntervalSpy = spyOn(global, 'clearInterval');
+        main.componentWillUnmount();
+        expect(clearIntervalSpy).toHaveBeenCalled();
+    });
 
-        it('changes state of paused', function () {
+    describe('when clicking a button', () => {
+        it('changes state of paused', () => {
             TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(main, 'button'));
             expect(main.state.paused).toBeFalsy();
+        });
+
+        it('starts a timer', () => {
+            jasmine.clock().install();
+            jasmine.clock().mockDate();
+            main = TestUtils.renderIntoDocument(<Main></Main>);
+            TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(main, 'button'));
+            jasmine.clock().tick(100);
+            expect(main.state.duration).toEqual(0);
+            expect(main.state.lastCheckedTime).toEqual(Date.now());
+            jasmine.clock().tick(100);
+            expect(main.state.duration).toEqual(100);
+            expect(main.state.lastCheckedTime).toEqual(Date.now());
+            jasmine.clock().uninstall();
         });
     });
 });
