@@ -22,3 +22,12 @@ export default class Box extends React.Component {
     );
   }
 }
+
+Box.propTypes = {
+  paused: React.PropTypes.bool,
+  duration: React.PropTypes.number,
+  name: React.PropTypes.string,
+  onStart: React.PropTypes.func,
+};
+
+export default Box;

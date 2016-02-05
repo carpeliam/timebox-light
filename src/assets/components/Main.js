@@ -44,3 +44,7 @@ export default class Main extends React.Component {
     );
   }
 }
+
+Main.propTypes = {};
+
+export default Main;
