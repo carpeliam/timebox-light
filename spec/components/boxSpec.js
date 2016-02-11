@@ -9,7 +9,7 @@ describe('Box', () => {
   beforeEach(() => {
     callbackSpy = jasmine.createSpy('callback');
     box = TestUtils.renderIntoDocument(
-      <Box name={'My Box'} duration={66000} paused onStart={callbackSpy}/>
+      <Box name={'My Box'} duration={66000} paused onStart={callbackSpy} />
     );
   });
 

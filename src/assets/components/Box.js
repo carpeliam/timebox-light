@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import 'moment-duration-format';
 
-export default class Box extends React.Component {
+class Box extends React.Component {
   formattedTime() {
     return moment.duration(this.props.duration).format('h:mm:ss', { trim: false });
   }
