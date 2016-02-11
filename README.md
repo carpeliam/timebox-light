@@ -12,6 +12,12 @@ npm install
 npm test
 ```
 
+## Linting
+
+```
+npm run lint
+```
+
 ## Run Locally
 
 ```
