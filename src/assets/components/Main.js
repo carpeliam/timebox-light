@@ -24,13 +24,14 @@ export default class Main extends React.Component {
   }
 
   incrementDurations() {
+    const now = Date.now();
+    let duration = this.state.duration;
     if (!this.state.paused) {
-      const now = Date.now();
       const lastCheckedTime = this.state.lastCheckedTime || now;
       const elapsed = now - lastCheckedTime;
-      const duration = this.state.duration += elapsed;
-      this.setState({ duration, lastCheckedTime: now });
+      duration += elapsed;
     }
+    this.setState({ duration, lastCheckedTime: now });
   }
 
   render() {

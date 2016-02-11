@@ -33,16 +33,29 @@ describe('Main', () => {
     expect(clearIntervalSpy).toHaveBeenCalled();
   });
 
-  it('should not increase the duration if paused', () => {
-    jasmine.clock().install();
-    jasmine.clock().mockDate();
-    main = TestUtils.renderIntoDocument(<Main />);
+  describe('when paused', () => {
+    beforeEach(() => {
+      jasmine.clock().install();
+      jasmine.clock().mockDate();
+    });
+    afterEach(() => {
+      jasmine.clock().uninstall();
+    });
+    it('should not increase the duration', () => {
+      main = TestUtils.renderIntoDocument(<Main />);
+      jasmine.clock().tick(100);
+      expect(main.state.duration).toEqual(0);
+      jasmine.clock().tick(100);
+      expect(main.state.duration).toEqual(0);
+    });
 
-    jasmine.clock().tick(100);
-    expect(main.state.duration).toEqual(0);
-    jasmine.clock().tick(100);
-    expect(main.state.duration).toEqual(0);
-    jasmine.clock().uninstall();
+    it('should keep the last checked time synchronized', () => {
+      main = TestUtils.renderIntoDocument(<Main />);
+      jasmine.clock().tick(100);
+      expect(main.state.lastCheckedTime).toEqual(Date.now());
+      jasmine.clock().tick(100);
+      expect(main.state.lastCheckedTime).toEqual(Date.now());
+    });
   });
 
   describe('when clicking a button', () => {
