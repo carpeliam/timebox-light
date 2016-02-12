@@ -4,6 +4,7 @@ import Box from './Box';
 export default class Main extends React.Component {
   constructor() {
     super();
+    this.toggleActive = this.toggleActive.bind(this);
     this.state = { name: 'I am a box', duration: 0, lastCheckedTime: undefined, paused: true };
   }
 
@@ -39,7 +40,7 @@ export default class Main extends React.Component {
       <div>
         <Box name={this.state.name} duration={this.state.duration}
           paused={this.state.paused}
-          onStart={this.toggleActive.bind(this)}
+          onStart={this.toggleActive}
         />
       </div>
     );
