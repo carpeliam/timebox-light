@@ -1,4 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Box from './components/Box';
 
-ReactDOM.render(<div>React has rendered me!</div>, document.getElementById('app'));
+ReactDOM.render(<Box name={'Hello World!'} />, document.getElementById('app'));
