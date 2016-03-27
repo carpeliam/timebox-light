@@ -1,8 +1,8 @@
 import React from 'react';
-export default class Box extends React.Component {
+class Box extends React.Component {
   render() {
-    var boxName = this.props.name;
-    var buttonContent = this.props.active ? 'Stop' : 'Start';
+    const boxName = this.props.name;
+    const buttonContent = this.props.active ? 'Stop' : 'Start';
     return (
       <div>
         {boxName}
@@ -11,3 +11,9 @@ export default class Box extends React.Component {
     );
   }
 }
+Box.propTypes = {
+  name: React.PropTypes.string,
+  active: React.PropTypes.bool,
+};
+
+export default Box;
