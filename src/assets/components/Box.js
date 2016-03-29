@@ -6,7 +6,7 @@ class Box extends React.Component {
     return (
       <div>
         {boxName}
-        <button>{buttonContent}</button>
+        <button onClick={this.props.onStart}>{buttonContent}</button>
       </div>
     );
   }
@@ -14,6 +14,9 @@ class Box extends React.Component {
 Box.propTypes = {
   name: React.PropTypes.string,
   active: React.PropTypes.bool,
+  onStart: React.PropTypes.func,
 };
-
+Box.defaultProps = {
+  active: false,
+};
 export default Box;

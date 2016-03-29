@@ -7,10 +7,16 @@ describe('Box', () => {
   let box;
 
   describe('when inactive', () => {
+    let callbackSpy;
     beforeEach(() => {
+      callbackSpy = jasmine.createSpy('onStart');
       box = TestUtils.renderIntoDocument(
-        <Box name={'My Box'} />
+        <Box name={'My Box'} onStart={callbackSpy} />
       );
+    });
+
+    it('should have an active value of false', () => {
+      expect(box.props.active).toBe(false);
     });
 
     it('displays the name of the Box', () => {
@@ -19,6 +25,12 @@ describe('Box', () => {
 
     it('has a start button', () => {
       expect(TestUtils.findRenderedDOMComponentWithTag(box, 'button').textContent).toEqual('Start');
+    });
+
+    it('call callback when button is clicked', () => {
+      const button = TestUtils.findRenderedDOMComponentWithTag(box, 'button');
+      TestUtils.Simulate.click(button);
+      expect(callbackSpy).toHaveBeenCalled();
     });
   });
 
